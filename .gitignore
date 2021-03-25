@@ -1,8 +1,8 @@
 # ignore exe files
 *.exe
 
-# ignore current folders
-/Lists
+# ignore current files
+_*.cpp
 
 # vs code generated
 /.vscode

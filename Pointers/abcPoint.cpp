@@ -16,10 +16,8 @@ int main()
    //    cout << *(abc_p + i);
    // }
 
-   int i = 0;
    while(*abc_p)
    {
-      cout << *abc_p;
-      abc_p = abc_p + 1;
-   }   
+      cout << *(abc_p++);
+   }
 }

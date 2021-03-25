@@ -1,0 +1,8 @@
+# ignore exe files
+*.exe
+
+# ignore current folders
+/Lists
+
+# vs code generated
+/.vscode

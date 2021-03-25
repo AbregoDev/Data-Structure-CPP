@@ -6,3 +6,6 @@ _*.cpp
 
 # vs code generated
 /.vscode
+
+# drawings
+/Diagrams

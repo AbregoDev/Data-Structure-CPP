@@ -9,3 +9,6 @@ _*.cpp
 
 # drawings
 /Diagrams
+
+# this file
+.gitignore

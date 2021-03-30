@@ -2,6 +2,12 @@
 #include "Nodo.h"
 using namespace std;
 
+enum ErroresListas
+{
+   INDEX_OUT_OF_RANGE,
+   EMPTY_LIST,
+};
+
 class Lista
 {
    Nodo *cabeza;
@@ -45,6 +51,47 @@ class Lista
       }
    }
 
+   public: void insertarEnPosicion(Tipo dato, int posicion)
+   {
+      Nodo *nuevoNodo = new Nodo(dato);
+      if(!estaVacia())
+      {
+         Nodo *aux = cabeza;
+         int indice = 0;
+
+         while(indice < posicion - 1)
+         {
+            aux = aux->getSiguiente();
+            indice++;
+
+            if(aux == NULL)
+            {
+               throw INDEX_OUT_OF_RANGE;
+            }
+         }
+
+         if(posicion == 0)
+         {
+            insertarAlPrincipio(dato);
+         }
+         else
+         {
+            Nodo *siguiente = aux->getSiguiente();  
+            aux->setSiguiente(nuevoNodo);
+            nuevoNodo->setSiguiente(siguiente);
+
+            // Alternativa
+            // nuevoNodo->setSiguiente(aux->getSiguiente());
+            // aux->setSiguiente(nuevoNodo);
+         }
+      }
+      else
+      {
+         cabeza = nuevoNodo;
+         ultimo = nuevoNodo;
+      }
+   }
+
    public: int buscarElemento(Tipo elementoBuscado)
    {
       Nodo *aux = cabeza;
@@ -71,23 +118,30 @@ class Lista
       return indice;
    }
    
-   public: Tipo busquedaPorIndice(int indice)
+   public: Tipo buscarPorIndice(int indice)
    {
-      Nodo *aux = cabeza;
-      int controlIndice = 0;
-
-      while(controlIndice < indice)
+      if(!estaVacia())
       {
-         aux = aux->getSiguiente();
-         controlIndice++;
+         Nodo *aux = cabeza;
+         int controlIndice = 0;
 
-         if(aux = NULL)
+         while(controlIndice < indice)
          {
-            // Lanzar error
-         }
-      }
+            aux = aux->getSiguiente();
+            controlIndice++;
 
-      return aux->getDato();
+            if(aux == NULL)
+            {
+               throw INDEX_OUT_OF_RANGE;
+            }
+         }
+
+         return aux->getDato();
+      }
+      else
+      {
+         throw EMPTY_LIST;
+      }
    }
 
    public: bool estaVacia()
@@ -122,9 +176,9 @@ int main()
          cout << "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-" << endl;
          cout << "1: Insertar al principio" << endl;
          cout << "2: Insertar al final" << endl;
-         // cout << "3: Insertar en posicion" << endl;
-         // cout << "4: Buscar por incidencia" << endl;
-         // cout << "5: Buscar por indice" << endl;
+         cout << "3: Insertar en posicion" << endl;
+         cout << "4: Buscar por incidencia" << endl;
+         cout << "5: Buscar por indice" << endl;
          // cout << "6: Eliminar por incidencia" << endl;
          cout << "0: Salir" << endl;
          cout << "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-" << endl;
@@ -149,28 +203,28 @@ int main()
             lista->imprimir();
             break;
 
-         // case '3':
-         //    cout << "Numero a insertar: ";
-         //    cin >> n;
-         //    cout << "Posicion en la que insertar: ";
-         //    cin >> p;
-         //    lista->insertarEnPosicion(n, p);
-         //    lista->imprimir();
-         //    break;
+         case '3':
+            cout << "Numero a insertar: ";
+            cin >> n;
+            cout << "Posicion en la que insertar: ";
+            cin >> p;
+            lista->insertarEnPosicion(n, p);
+            lista->imprimir();
+            break;
 
-         // case '4':
-         //    cout << "Numero a buscar: ";
-         //    cin >> n;
-         //    e = lista->buscarElemento(n);
-         //    cout << "Posicion: " << e << endl;
-         //    break;
+         case '4':
+            cout << "Numero a buscar: ";
+            cin >> n;
+            e = lista->buscarElemento(n);
+            cout << "Posicion: " << e << endl;
+            break;
 
-         // case '5':
-         //    cout << "Posicion a obtener: ";
-         //    cin >> i;
-         //    e = lista->buscarPorIndice(i);
-         //    cout << "Elemento: " << e << endl;
-         //    break;
+         case '5':
+            cout << "Posicion a obtener: ";
+            cin >> i;
+            e = lista->buscarPorIndice(i);
+            cout << "Elemento: " << e << endl;
+            break;
 
          // case '6':
          //    cout << "Numero a eliminar: ";
@@ -186,15 +240,15 @@ int main()
          }
       } while(opc != '0');
    }
-   catch(int64_t exc)
+   catch(ErroresListas exc)
    {
       switch (exc)
       {
-      case 2:
+      case INDEX_OUT_OF_RANGE:
          cout << "Indice no valido" << endl;
          break;
 
-      case 3:
+      case EMPTY_LIST:
          cout << "La lista esta vacia" << endl;
          break;
       

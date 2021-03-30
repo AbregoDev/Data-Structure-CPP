@@ -1,111 +1,12 @@
 #include <iostream>
 #include "Nodo.h"
+#include "Lista.h"
 using namespace std;
 
-class Lista
+enum ErroresListas
 {
-   Nodo *cabeza;
-   Nodo *ultimo;
-
-   public: Lista()
-   {
-      cabeza = NULL;
-      ultimo = NULL;
-   }
-
-   public: void insertarAlPrincipio(Tipo dato)
-   {
-      Nodo *nuevoNodo = new Nodo(dato);
-
-      if(!estaVacia())
-      {   
-         nuevoNodo->setSiguiente(cabeza);
-         cabeza = nuevoNodo;
-      }
-      else
-      {
-         cabeza = nuevoNodo;
-         ultimo = nuevoNodo;
-      }
-   }
-
-   public: void insertarAlFinal(Tipo dato)
-   {
-      Nodo *nuevoNodo = new Nodo(dato);
-      
-      if(!estaVacia())
-      {
-         ultimo->setSiguiente(nuevoNodo);
-         ultimo = nuevoNodo;
-      }
-      else
-      {
-         cabeza = nuevoNodo;
-         ultimo = nuevoNodo;
-      }
-   }
-
-   public: int buscarElemento(Tipo elementoBuscado)
-   {
-      Nodo *aux = cabeza;
-      int indice = 0;
-      while(aux != NULL)
-      {
-         if(aux->getDato() == elementoBuscado)
-         {
-            break;
-         }
-         else
-         {
-            aux = aux->getSiguiente();
-            indice++;
-         }
-      }
-
-      if(aux == NULL)
-      {
-         // Nunca encontró el elemento
-         indice = -1;
-      }
-
-      return indice;
-   }
-   
-   public: Tipo busquedaPorIndice(int indice)
-   {
-      Nodo *aux = cabeza;
-      int controlIndice = 0;
-
-      while(controlIndice < indice)
-      {
-         aux = aux->getSiguiente();
-         controlIndice++;
-
-         if(aux = NULL)
-         {
-            // Lanzar error
-         }
-      }
-
-      return aux->getDato();
-   }
-
-   public: bool estaVacia()
-   {
-      return cabeza == NULL;
-   }
-
-   public: void imprimir()
-   {
-      Nodo *aux = cabeza;
-
-      while(aux != NULL)
-      {
-         cout << aux->getDato() << " ";
-         aux = aux->getSiguiente();
-      }
-      cout << endl;
-   }
+   INDEX_OUT_OF_RANGE = 2,
+   EMPTY_LIST = 3,
 };
 
 int main()
@@ -186,15 +87,15 @@ int main()
          }
       } while(opc != '0');
    }
-   catch(int64_t exc)
+   catch(ErroresListas exc)
    {
       switch (exc)
       {
-      case 2:
+      case INDEX_OUT_OF_RANGE:
          cout << "Indice no valido" << endl;
          break;
 
-      case 3:
+      case EMPTY_LIST:
          cout << "La lista esta vacia" << endl;
          break;
       

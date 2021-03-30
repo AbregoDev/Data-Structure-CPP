@@ -4,7 +4,7 @@ typedef int Tipo;
 
 class Nodo
 {
-   public:
+   private:
       int dato;
       Nodo *siguiente;
 

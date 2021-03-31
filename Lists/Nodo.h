@@ -4,17 +4,17 @@ typedef int Tipo;
 
 class Nodo
 {
-   private:
-      Tipo dato;
-      Nodo *siguiente;
+private:
+   Tipo dato;
+   Nodo *siguiente;
 
-   public:
-      Nodo();
-      Nodo(int dato);
-      int getDato();
-      void setDato(int dato);
-      Nodo *getSiguiente();
-      void setSiguiente(Nodo *siguiente);
+public:
+   Nodo();
+   Nodo(Tipo dato);
+   Tipo getDato();
+   void setDato(Tipo dato);
+   Nodo *getSiguiente();
+   void setSiguiente(Nodo *siguiente);
 };
 
 Nodo::Nodo()
@@ -23,18 +23,18 @@ Nodo::Nodo()
    Nodo::siguiente = NULL;
 }
 
-Nodo::Nodo(int dato)
+Nodo::Nodo(Tipo dato)
 {
    Nodo::dato = dato;
    Nodo::siguiente = NULL;
 }
 
-int Nodo::getDato()
+Tipo Nodo::getDato()
 {
    return dato;
 }
 
-void Nodo::setDato(int dato)
+void Nodo::setDato(Tipo dato)
 {
    Nodo::dato = dato;
 }

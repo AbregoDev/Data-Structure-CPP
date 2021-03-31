@@ -2,7 +2,7 @@
 *.exe
 
 # ignore current files
-_*.cpp
+_*.*
 
 # vs code generated
 .vscode

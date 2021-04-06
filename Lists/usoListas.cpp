@@ -7,7 +7,8 @@ int main()
    try
    {
       char opc;
-      int n, p, i, e;
+      Tipo n, e;
+      int p;
 
       do
       {
@@ -17,7 +18,8 @@ int main()
          cout << "3: Insertar en posicion" << endl;
          cout << "4: Buscar por incidencia" << endl;
          cout << "5: Buscar por indice" << endl;
-         // cout << "6: Eliminar por incidencia" << endl;
+         cout << "6: Eliminar por incidencia" << endl;
+         cout << "7: Eliminar por posicion" << endl;
          cout << "0: Salir" << endl;
          cout << "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-" << endl;
          cout << "Opcion: ";
@@ -71,23 +73,33 @@ int main()
 
          case '5':
             cout << "Posicion a obtener: ";
-            cin >> i;
-            e = lista->buscarPorIndice(i);
+            cin >> p;
+            e = lista->buscarPorIndice(p);
             cout << "Elemento: " << e << endl;
             // Esperar antes de volver a mostrar el menú
             fflush(stdin);
             cin.get();
             break;
 
-         // case '6':
-         //    cout << "Numero a eliminar: ";
-         //    cin >> n;
-         //    lista->eliminarElemento(n);
-         //    lista->imprimir();
-         //    // Esperar antes de volver a mostrar el menú
-         //    fflush(stdin);
-         //    cin.get();
-         //    break;
+         case '6':
+            cout << "Numero a eliminar: ";
+            cin >> n;
+            lista->eliminarElemento(n);
+            lista->imprimir();
+            // Esperar antes de volver a mostrar el menú
+            fflush(stdin);
+            cin.get();
+            break;
+
+         case '7':
+            cout << "Posicion eliminar: ";
+            cin >> p;
+            lista->eliminarPorIndice(p);
+            lista->imprimir();
+            // Esperar antes de volver a mostrar el menú
+            fflush(stdin);
+            cin.get();
+            break;
          
          default:
             opc = '0';

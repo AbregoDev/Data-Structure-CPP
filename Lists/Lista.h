@@ -21,6 +21,8 @@ public:
    void insertarEnPosicion(Tipo dato, int indice);
    int buscarElemento(Tipo elementoBuscado);
    Tipo buscarPorIndice(int indice);
+   void eliminarElemento(Tipo elemento);
+   void eliminarPorIndice(int posicion);
    bool estaVacia();
    void imprimir();
 };
@@ -223,6 +225,101 @@ bool Lista::estaVacia()
 {
    // Si la cabeza es nula, significa que no hay datos
    return cabeza == NULL;
+}
+
+void Lista::eliminarElemento(Tipo elemento)
+{
+   if (!estaVacia())
+   {
+      Nodo *aux = cabeza;
+      Nodo *anterior = NULL;
+
+      while (aux != NULL)
+      {
+         if (aux->getDato() == elemento)
+         {
+            break;
+         }
+         else
+         {
+            anterior = aux;
+            aux = aux->getSiguiente();
+         }
+      }
+
+      if (aux != NULL)
+      {
+         if (aux == cabeza)
+         {
+            // El elemento está al principio
+            cabeza = aux->getSiguiente();
+         }
+         else if (aux == ultimo)
+         {
+            // El elemento está al final
+            anterior->setSiguiente(NULL);
+            ultimo = anterior;
+         }
+         else
+         {
+            anterior->setSiguiente(aux->getSiguiente());
+         }
+
+         delete aux;
+      }
+   }
+   else
+   {
+      throw EMPTY_LIST;
+   }
+}
+
+void Lista::eliminarPorIndice(int posicion)
+{
+   if (!estaVacia())
+   {
+      Nodo *aux = cabeza;
+      Nodo *anterior = NULL;
+      int indiceControl = 0;
+
+      while (indiceControl < posicion)
+      {
+         anterior = aux;
+         aux = aux->getSiguiente();
+         indiceControl++;
+
+         if (aux == NULL)
+         {
+            // Se salió de la lista
+            throw INDEX_OUT_OF_RANGE;
+         }
+      }
+
+      if (aux == cabeza)
+      {
+         // El auxiliar nunca se movió
+         // Eliminar el primer elemento
+         cabeza = aux->getSiguiente();
+      }
+      else if (aux == ultimo)
+      {
+         // El auxiliar avanzó hasta el último elemento
+         // Eliminar el último nodo
+         anterior->setSiguiente(NULL);
+         ultimo = anterior;
+      }
+      else
+      {
+         // El elemento a eliminar no es ni la cabeza ni el último
+         anterior->setSiguiente(aux->getSiguiente());
+      }
+
+      delete aux;
+   }
+   else
+   {
+      throw EMPTY_LIST;
+   }
 }
 
 void Lista::imprimir()

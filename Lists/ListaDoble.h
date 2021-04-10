@@ -19,12 +19,13 @@ public:
    void insertarAlPrincipio(Tipo dato);
    void insertarAlFinal(Tipo dato);
    void insertarEnPosicion(Tipo dato, int indice);
-   // int buscarElemento(Tipo elementoBuscado);
-   // Tipo buscarPorIndice(int indice);
-   // void eliminarElemento(Tipo elemento);
-   // void eliminarPorIndice(int posicion);
+   int buscarElemento(Tipo elementoBuscado);
+   Tipo buscarPorIndice(int indice);
+   void eliminarElemento(Tipo elemento);
+   void eliminarPorIndice(int posicion);
    bool estaVacia();
    void imprimir();
+   ListaDoble *invertir();
 };
 
 ListaDoble::ListaDoble()
@@ -152,76 +153,76 @@ void ListaDoble::insertarEnPosicion(Tipo dato, int indice)
    }
 }
 
-// int ListaDoble::buscarElemento(Tipo elementoBuscado)
-// {
-//    // Auxiliar para recorrer la lista
-//    NodoDoble *aux = cabeza;
-//    // variable para controlar el índice
-//    int controlIndice = 0;
-//    // Recorrer la lista mientras el elemento no sea nulo
-//    while (aux != NULL)
-//    {
-//       // Si el dato del auxiliar consiste con el elemento
-//       // que se está buscando, terminar el ciclo
-//       if (aux->getDato() == elementoBuscado)
-//       {
-//          break;
-//       }
-//       // Si no coincide, avanzar al siguiente nodo
-//       else
-//       {
-//          aux = aux->getSiguiente();
-//          controlIndice++;
-//       }
-//    }
-//    // Si al finalizar el ciclo el auxiliar es nulo,
-//    // entonces no se encontró el elemento
-//    if (aux == NULL)
-//    {
-//       // Devolver un -1 indicando que no se encontró
-//       controlIndice = -1;
-//    }
+int ListaDoble::buscarElemento(Tipo elementoBuscado)
+{
+   // Auxiliar para recorrer la lista
+   NodoDoble *aux = cabeza;
+   // variable para controlar el índice
+   int controlIndice = 0;
+   // Recorrer la lista mientras el elemento no sea nulo
+   while (aux != NULL)
+   {
+      // Si el dato del auxiliar consiste con el elemento
+      // que se está buscando, terminar el ciclo
+      if (aux->getDato() == elementoBuscado)
+      {
+         break;
+      }
+      // Si no coincide, avanzar al siguiente nodo
+      else
+      {
+         aux = aux->getSiguiente();
+         controlIndice++;
+      }
+   }
+   // Si al finalizar el ciclo el auxiliar es nulo,
+   // entonces no se encontró el elemento
+   if (aux == NULL)
+   {
+      // Devolver un -1 indicando que no se encontró
+      controlIndice = -1;
+   }
 
-//    // Finalmente, devolver el índice
-//    return controlIndice;
-// }
+   // Finalmente, devolver el índice
+   return controlIndice;
+}
 
-// Tipo ListaDoble::buscarPorIndice(int indice)
-// {
-//    // Si la lista no está vacía, ejecutar el algoritmo
-//    if (!estaVacia())
-//    {
-//       // Auxiliar para recorrer la lista
-//       NodoDoble *aux = cabeza;
-//       // Variable de control del índice
-//       int controlIndice = 0;
+Tipo ListaDoble::buscarPorIndice(int indice)
+{
+   // Si la lista no está vacía, ejecutar el algoritmo
+   if (!estaVacia())
+   {
+      // Auxiliar para recorrer la lista
+      NodoDoble *aux = cabeza;
+      // Variable de control del índice
+      int controlIndice = 0;
 
-//       // Mientras el control del índice sea menor al
-//       // índice solicitado, ejecutar
-//       while (controlIndice < indice)
-//       {
-//          // Avanzar al siguiente nodo
-//          aux = aux->getSiguiente();
-//          controlIndice++;
+      // Mientras el control del índice sea menor al
+      // índice solicitado, ejecutar
+      while (controlIndice < indice)
+      {
+         // Avanzar al siguiente nodo
+         aux = aux->getSiguiente();
+         controlIndice++;
 
-//          // Si el auxiliar es nulo, significa que pidió
-//          // un índice que no existe aún. Lanzar error
-//          if (aux == NULL)
-//          {
-//             throw INDEX_OUT_OF_RANGE;
-//          }
-//       }
+         // Si el auxiliar es nulo, significa que pidió
+         // un índice que no existe aún. Lanzar error
+         if (aux == NULL)
+         {
+            throw INDEX_OUT_OF_RANGE;
+         }
+      }
 
-//       // Si el ciclo se terminó correctamente, devolver el dato
-//       // de la posición alcanzada
-//       return aux->getDato();
-//    }
-//    // La lista está vacía, devolver un error
-//    else
-//    {
-//       throw EMPTY_LIST;
-//    }
-// }
+      // Si el ciclo se terminó correctamente, devolver el dato
+      // de la posición alcanzada
+      return aux->getDato();
+   }
+   // La lista está vacía, devolver un error
+   else
+   {
+      throw EMPTY_LIST;
+   }
+}
 
 bool ListaDoble::estaVacia()
 {
@@ -229,109 +230,186 @@ bool ListaDoble::estaVacia()
    return cabeza == NULL;
 }
 
-// void ListaDoble::eliminarElemento(Tipo elemento)
-// {
-//    if (!estaVacia())
-//    {
-//       NodoDoble *aux = cabeza;
-//       NodoDoble *anterior = NULL;
+void ListaDoble::eliminarElemento(Tipo elemento)
+{
+   // Verificar que la lista no esté vacía
+   if (!estaVacia())
+   {
+      // Crear un nodo para recorrer toda la lista
+      NodoDoble *aux = cabeza;
 
-//       while (aux != NULL)
-//       {
-//          if (aux->getDato() == elemento)
-//          {
-//             break;
-//          }
-//          else
-//          {
-//             anterior = aux;
-//             aux = aux->getSiguiente();
-//          }
-//       }
+      // Mientras aux sea un Nodo válido
+      while (aux != NULL)
+      {
+         // Si el miembro dato del auxiliar es igual al elemento buscado
+         // detener el ciclo
+         if (aux->getDato() == elemento)
+         {
+            break;
+         }
+         // En caso contrario, avanzar al siguiente nodo
+         else
+         {
+            aux = aux->getSiguiente();
+         }
+      }
 
-//       if (aux != NULL)
-//       {
-//          if (aux == cabeza)
-//          {
-//             // El elemento está al principio
-//             cabeza = aux->getSiguiente();
-//          }
-//          else if (aux == ultimo)
-//          {
-//             // El elemento está al final
-//             anterior->setSiguiente(NULL);
-//             ultimo = anterior;
-//          }
-//          else
-//          {
-//             anterior->setSiguiente(aux->getSiguiente());
-//          }
+      // Al finalizar el ciclo, verificar si el nodo es válido (no nulo)
+      if (aux != NULL)
+      {
+         // Si el auxiliar apunta a la cabeza, eliminar el primer elemento
+         if (aux == cabeza)
+         {
+            // La cabeza ahora apuntará al siguiente del primero (el segundo)
+            cabeza = aux->getSiguiente();
+            // El puntero anterior del auxiliar ya no debe apuntar a ningún nodo
+            cabeza->setAnterior(NULL);
+         }
+         // Si el auxiliar apunta al último, eliminar el elemento final
+         else if (aux == ultimo)
+         {
+            // Guardar una referencia al nodo anterior (el penúltimo)
+            NodoDoble *anterior = aux->getAnterior();
+            // El siguiente del nodo "anterior" (el penúltimo) ya no debe apuntar
+            // a ningún nodo
+            anterior->setSiguiente(NULL);
+            // Ahora el último elemento es ese anterior
+            ultimo = anterior;
+         }
+         // El auxiliar no está al principio ni al final (está "en medio")
+         else
+         {
+            // Guardar una referencia al nodo anterior
+            NodoDoble *anterior = aux->getAnterior();
+            // Guardar una referencia al nodo siguiente
+            NodoDoble *siguiente = aux->getSiguiente();
+            // El "anterior" ahora debe apuntar como siguiente a "siguiente"
+            anterior->setSiguiente(siguiente);
+            // El "siguiente" ahora debe apuntar como anterior a "anterior"
+            siguiente->setAnterior(anterior);
+         }
+         // En cualquier caso, liberar ese espacio de memoria de ese nodo
+         delete aux;
+      }
+   }
+   else
+   {
+      // Si la lista está vacía, lanzar un error, pues no se puede eliminar
+      // un elemento en una lista vacía
+      throw EMPTY_LIST;
+   }
+}
 
-//          delete aux;
-//       }
-//    }
-//    else
-//    {
-//       throw EMPTY_LIST;
-//    }
-// }
+void ListaDoble::eliminarPorIndice(int posicion)
+{
+   // Verificar que la lista no esté vacía
+   if (!estaVacia())
+   {
+      // Crear un nodo para recorrer toda la lista
+      NodoDoble *aux = cabeza;
+      // Crear un control de índice
+      int indiceControl = 0;
 
-// void ListaDoble::eliminarPorIndice(int posicion)
-// {
-//    if (!estaVacia())
-//    {
-//       NodoDoble *aux = cabeza;
-//       NodoDoble *anterior = NULL;
-//       int indiceControl = 0;
+      // Mientras no se llegue a la posición deseada
+      while (indiceControl < posicion)
+      {
+         // Avanzar al siguiente nodo
+         aux = aux->getSiguiente();
+         // Aumentar el control del índice
+         indiceControl++;
 
-//       while (indiceControl < posicion)
-//       {
-//          anterior = aux;
-//          aux = aux->getSiguiente();
-//          indiceControl++;
+         // Si el auxiliar es nulo, lanzar un error, significa que el numero
+         // de elementos es menor al índice solicitado
+         if (aux == NULL)
+         {
+            throw INDEX_OUT_OF_RANGE;
+         }
+      }
 
-//          if (aux == NULL)
-//          {
-//             // Se salió de la lista
-//             throw INDEX_OUT_OF_RANGE;
-//          }
-//       }
-
-//       if (aux == cabeza)
-//       {
-//          // El auxiliar nunca se movió
-//          // Eliminar el primer elemento
-//          cabeza = aux->getSiguiente();
-//       }
-//       else if (aux == ultimo)
-//       {
-//          // El auxiliar avanzó hasta el último elemento
-//          // Eliminar el último nodo
-//          anterior->setSiguiente(NULL);
-//          ultimo = anterior;
-//       }
-//       else
-//       {
-//          // El elemento a eliminar no es ni la cabeza ni el último
-//          anterior->setSiguiente(aux->getSiguiente());
-//       }
-
-//       delete aux;
-//    }
-//    else
-//    {
-//       throw EMPTY_LIST;
-//    }
-// }
+      // Si el auxiliar apunta a la cabeza, eliminar el primer elemento
+      if (aux == cabeza)
+      {
+         // La cabeza ahora apuntará al siguiente del primero (el segundo)
+         cabeza = aux->getSiguiente();
+         // El puntero anterior del auxiliar ya no debe apuntar a ningún nodo
+         cabeza->setAnterior(NULL);
+      }
+      // Si el auxiliar apunta al último, eliminar el elemento final
+      else if (aux == ultimo)
+      {
+         // Guardar una referencia al nodo anterior (el penúltimo)
+         NodoDoble *anterior = aux->getAnterior();
+         // El siguiente del nodo "anterior" (el penúltimo) ya no debe apuntar
+         // a ningún nodo
+         anterior->setSiguiente(NULL);
+         // Ahora el último elemento es ese anterior
+         ultimo = anterior;
+      }
+      // El auxiliar no está al principio ni al final (está "en medio")
+      else
+      {
+         // Guardar una referencia al nodo anterior
+         NodoDoble *anterior = aux->getAnterior();
+         // Guardar una referencia al nodo siguiente
+         NodoDoble *siguiente = aux->getSiguiente();
+         // El "anterior" ahora debe apuntar como siguiente a "siguiente"
+         anterior->setSiguiente(siguiente);
+         // El "siguiente" ahora debe apuntar como anterior a "anterior"
+         siguiente->setAnterior(anterior);
+      }
+      // En cualquier caso, liberar ese espacio de memoria de ese nodo
+      delete aux;
+   }
+   else
+   {
+      throw EMPTY_LIST;
+   }
+}
 
 void ListaDoble::imprimir()
 {
+   // Crear un nodo para recorrer toda la lista
    NodoDoble *aux = cabeza;
-   // Recorrer la lista e imprimir el dato
    while (aux != NULL)
    {
+      // Imprimir y agregar un separador
       cout << aux->getDato() << ", ";
+      // Avanzar al siguiente nodo
       aux = aux->getSiguiente();
    }
    cout << endl;
+}
+
+ListaDoble *ListaDoble::invertir()
+{
+   // Crear una nueva lista
+   ListaDoble *lista = new ListaDoble();
+
+   // Si la lista no está vacía, poblar la copia
+   if (!estaVacia())
+   {
+      // Crear un nodo para recorrer la lista empezando
+      // en el último elemento
+      NodoDoble *aux = ultimo;
+      // Verificar que sea un nodo válido
+      while (aux != NULL)
+      {
+         // Insertar el elemento al final,
+         // puesto que se empezará en el último.
+         // Otro enfoque sería inicializar aux en la cabeza
+         // e insertar al principio en cada iteración.
+         lista->insertarAlFinal(aux->getDato());
+         
+         // Navegar al nodo anterior
+         // Guardar la referencia del elemento anterior
+         NodoDoble *anterior = aux->getAnterior();
+         // Liberar la dirección de memoria del nodo actual
+         // puesto que ya no será utilizado
+         delete aux;
+         // Asignar al auxiliar la dirección guardada en el anterior
+         aux = anterior;
+      }
+   }
+   // Devolver la nueva lista invertida
+   return lista;
 }

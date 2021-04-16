@@ -1,8 +1,8 @@
-#include "ListaDoble.h"
+#include "ListaCircular.h"
 
 int main()
 {
-   ListaDoble *lista = new ListaDoble();
+   ListaCircular *lista = new ListaCircular();
 
    try
    {
@@ -20,7 +20,7 @@ int main()
          cout << "5: Buscar por indice" << endl;
          cout << "6: Eliminar por incidencia" << endl;
          cout << "7: Eliminar por posicion" << endl;
-         cout << "8: Invertir" << endl;
+         // cout << "8: Invertir" << endl;
          cout << "0: Salir" << endl;
          cout << "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-" << endl;
          cout << "Opcion: ";
@@ -102,13 +102,13 @@ int main()
             cin.get();
             break;
 
-         case '8':
-            lista = lista->invertir();
-            lista->imprimir();
-            // Esperar antes de volver a mostrar el menú
-            fflush(stdin);
-            cin.get();
-            break;
+         // case '8':
+         //    lista = lista->invertir();
+         //    lista->imprimir();
+         //    // Esperar antes de volver a mostrar el menú
+         //    fflush(stdin);
+         //    cin.get();
+         //    break;
          
          default:
             opc = '0';

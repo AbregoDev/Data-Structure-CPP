@@ -1,8 +1,11 @@
-#include "ArrayStack.h"
+#include "ArrayQueue.h"
 
 int main()
 {
-   ArrayStack *pila = new ArrayStack(5);
+   int size;
+   cout << "Enter size of the queue: ";
+   cin >> size;
+   ArrayQueue *queue = new ArrayQueue(size);
 
    try
    {
@@ -14,15 +17,14 @@ int main()
       do
       {
          cout << "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-" << endl;
-         cout << "1: Push" << endl;
-         cout << "2: Pop" << endl;
-         cout << "3: Peek" << endl;
-         cout << "4: is empty?" << endl;
-         cout << "5: is full?" << endl;
-         cout << "6: clean" << endl;
-         cout << "7: size" << endl;
-         cout << "8: length" << endl;
-         cout << "9: print" << endl;
+         cout << "1: Enqueue" << endl;
+         cout << "2: Dequeue" << endl;
+         cout << "3: Front" << endl;
+         cout << "4: Rear" << endl;
+         cout << "5: Is empty?" << endl;
+         cout << "6: Is full?" << endl;
+         cout << "7: length" << endl;
+         cout << "8: print" << endl;
          cout << "0: exit" << endl;
          cout << "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-" << endl;
          cout << "Option: ";
@@ -33,72 +35,66 @@ int main()
          switch (opc)
          {
          case '1':
-            cout << "Element to push: ";
+            cout << "Element to enque: ";
             cin >> element;
-            pila->push(element);
-            pila->print();
+            queue->enqueue(element);
+            queue->print();
             // Wait 'till key press
             fflush(stdin);
             cin.get();
             break;
 
          case '2':
-            element = pila->pop();
-            cout << "Pop: " << element << endl;
-            pila->print();
+            element = queue->dequeue();
+            cout << "Dequeue: " << element << endl;
+            queue->print();
             // Wait 'till key press
             fflush(stdin);
             cin.get();
             break;
 
          case '3':
-            element = pila->peek();
-            cout << "Peek: " << element << endl;
-            pila->print();
+            element = queue->front();
+            cout << "Front: " << element << endl;
+            queue->print();
             // Wait 'till key press
             fflush(stdin);
             cin.get();
             break;
+            break;
 
          case '4':
-            cout << "Is empty?: " << (pila->isEmpty() ? "true" : "false") << endl;
+            element = queue->rear();
+            cout << "Rear: " << element << endl;
+            queue->print();
             // Wait 'till key press
             fflush(stdin);
             cin.get();
             break;
 
          case '5':
-            cout << "Is full?: " << (pila->isFull() ? "true" : "false") << endl;
+            cout << "Is empty?: " << (queue->isEmpty() ? "true" : "false") << endl;
             // Wait 'till key press
             fflush(stdin);
             cin.get();
             break;
 
          case '6':
-            pila->clean();
-            cout << "Stack cleaned!" << endl;
+            cout << "Is full?: " << (queue->isFull() ? "true" : "false") << endl;
             // Wait 'till key press
             fflush(stdin);
             cin.get();
             break;
 
          case '7':
-            cout << "Size: " << pila->size() << endl;
+            cout << "Length: " << queue->length() << " / " << queue->size() << endl;
             // Wait 'till key press
             fflush(stdin);
             cin.get();
             break;
 
          case '8':
-            cout << "Length: " << pila->length() << endl;
-            // Wait 'till key press
-            fflush(stdin);
-            cin.get();
-            break;
-            break;
-
-         case '9':
-            pila->print();
+            queue->print();
             // Wait 'till key press
             fflush(stdin);
             cin.get();
@@ -111,25 +107,25 @@ int main()
          }
       } while(opc != '0');
    }
-   catch(StackErrors err)
+   catch(QueueErrors err)
    {
       switch (err)
       {
-      case STACK_OVERFLOW:
-         cout << "Stack overflow!" << endl;
+      case QUEUE_OVERFLOW:
+         cout << "Queue overflow!" << endl;
          break;
 
-      case STACK_UNDERFLOW:
-         cout << "Stack underflow!!!" << endl;
+      case QUEUE_UNDERFLOW:
+         cout << "Queue underflow!" << endl;
          break;
          break;
 
-      case EMPTY_STACK:
-         cout << "Empty stack!!!!!" << endl;
+      case EMPTY_QUEUE:
+         cout << "Empty queue!" << endl;
          break;
       
       default:
-         cout << "Error :(" << endl;
+         cout << "~ Error ~" << endl;
          break;
       }
    }

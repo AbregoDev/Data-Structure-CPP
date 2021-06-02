@@ -1,0 +1,7 @@
+Agregue un 5
+Agregue un 8
+Agregue un 10
+Quité un elemento
+Agregue un 3
+Estado final:
+8, 10, 3, 

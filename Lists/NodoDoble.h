@@ -1,6 +1,6 @@
 #include <iostream>
 
-typedef float Tipo;
+typedef int Tipo;
 
 class NodoDoble
 {

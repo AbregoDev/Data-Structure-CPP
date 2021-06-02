@@ -1,5 +1,6 @@
 #include <iostream>
-#include "ListaDoble.h"
+#include "../Lists/ListaDoble.h"
+#include "../Lists/NodoDoble.h"
 using namespace std;
 
 enum StackErrors
@@ -12,8 +13,8 @@ enum StackErrors
 class DynamicStack
 {
 private:
-   NodoDoble *pointer;
-   ListaDoble *lista;
+   NodoDoble* pointer;
+   ListaDoble* lista;
    int _length;
    // int _size;
 

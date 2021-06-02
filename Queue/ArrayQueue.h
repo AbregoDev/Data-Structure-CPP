@@ -37,6 +37,7 @@ ArrayQueue::ArrayQueue(int size)
    array = new DataType[size];
    _size = size;
    _front = _rear = 0;
+   _length = 0;
 }
 
 void ArrayQueue::enqueue(DataType data)

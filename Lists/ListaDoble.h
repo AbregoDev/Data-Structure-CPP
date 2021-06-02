@@ -26,6 +26,7 @@ public:
    bool estaVacia();
    void imprimir();
    ListaDoble *invertir();
+   NodoDoble *getCabeza();
 };
 
 ListaDoble::ListaDoble()
@@ -412,4 +413,9 @@ ListaDoble *ListaDoble::invertir()
    }
    // Devolver la nueva lista invertida
    return lista;
+}
+
+NodoDoble *ListaDoble::getCabeza()
+{
+   return cabeza;
 }
